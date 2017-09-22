@@ -1,0 +1,68 @@
+<!doctype html>
+<html ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>透過 JSON 抓取股價的 sample</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-resource.min.js">
+    </script>
+
+    <script src="Main.js">
+    </script>
+
+    <script src="stockService.js">
+    </script>
+
+    <script src="stockCtrl.js">
+    </script>
+
+
+    <style type="text/css">
+    .ClassUp {
+        color:red;
+    }
+    .ClassDown {
+        color:green;
+    }
+    .ClassNochange {
+        color:black;
+    }
+    </style>
+</head>
+
+<body>
+
+    <div ng-controller="StockCtrl">
+        <div class="grid ">
+            <div ng-repeat="stock in stocks  | filter:search" class="col_6">
+                <div ng-controller="AppCtrl">
+                    <table border=1>
+                        <tr>
+                            <td width=150>標的</td>
+                            <td width=100>成交價</td>
+                            <td width=100>漲跌</td>
+                            <td width=100>漲跌幅</td>
+                            <td width=300>json</td>
+                        </tr>
+                        <tr>
+                            <td>{{stock.name}}.{{indexResult[0].t}}
+                                <br>
+                                <button ng-click="loadData()">更新</button>
+                                <input type="hidden" with=10 size=10 type="text" ng-init="init(stock.id)" ng-model="stockItem">
+                            </td>
+                            <td>{{indexResult[0].l}}</td>
+                            <td><font ng-class='StockDisplayClass(indexResult[0].c)'>{{indexResult[0].c}} </font></td>
+                            <td><font ng-class='StockDisplayClass(indexResult[0].cp)'>{{indexResult[0].cp}}%</font>
+                            </td>
+                            <td>{{indexResult[0]}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
